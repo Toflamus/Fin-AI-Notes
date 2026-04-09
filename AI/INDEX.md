@@ -7,7 +7,7 @@
 *暂无内容*
 
 ## DeepLearning/ — 深度学习
-*暂无内容*
+- [归一化层 BN/LN/RMSNorm](DeepLearning/Normalization.md) — 三种归一化的张量维度、公式推导与适用场景
 
 ## Applications/ — 应用场景
 *暂无内容*

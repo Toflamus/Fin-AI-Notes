@@ -648,6 +648,226 @@ df = pd.read_sql('SELECT * FROM employees', engine)
 
 ---
 
+## 八、ClickHouse 特有语法
+
+ClickHouse 是面向 OLAP（在线分析）的列式数据库，在量化金融的 Tick 级数据处理中广泛使用。它兼容大部分标准 SQL，但有一些独有的扩展语法。
+
+### 8.1 条件聚合 — `sumIf` / `countIf` / `avgIf`
+
+标准 SQL 中需要 `SUM(CASE WHEN ... THEN x ELSE 0 END)` 才能做条件聚合，ClickHouse 提供了简洁的 `-If` 后缀系列函数：
+
+```sql
+-- ClickHouse 写法（简洁）
+sumIf(amount, status = 'paid') AS paid_total
+
+-- 等价的标准 SQL 写法（冗长）
+SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS paid_total
+```
+
+**几乎所有聚合函数都可以加 `-If` 后缀：**
+
+| ClickHouse | 含义 |
+|------------|------|
+| `sumIf(x, cond)` | 只对满足 cond 的行求和 |
+| `countIf(cond)` | 只统计满足 cond 的行数 |
+| `avgIf(x, cond)` | 只对满足 cond 的行求均值 |
+| `minIf(x, cond)` | 满足 cond 的行中取最小值 |
+
+### 8.2 `stddevPop()` — 总体标准差
+
+```sql
+-- 总体标准差（除以 N）
+stddevPop(price) AS price_std
+
+-- 对比：样本标准差（除以 N-1），标准 SQL 中常写作 STDDEV_SAMP
+stddevSamp(price) AS price_std_sample
+```
+
+> 在金融因子计算中，通常用 `stddevPop`（总体），因为我们处理的是完整的日内 tick 数据，而非抽样。
+
+### 8.3 日期时间函数
+
+ClickHouse 提供了丰富的日期/时间提取函数，比标准 SQL 的 `EXTRACT` 更简洁：
+
+```sql
+toDate(exchange_time)       -- 提取日期部分 → Date 类型
+toHour(exchange_time)       -- 提取小时 → UInt8 (0-23)
+toMinute(exchange_time)     -- 提取分钟 → UInt8 (0-59)
+toSecond(exchange_time)     -- 提取秒
+toYear(exchange_time)       -- 提取年份
+toMonth(exchange_time)      -- 提取月份
+toDayOfWeek(exchange_time)  -- 星期几 (1=Monday)
+
+-- 标准 SQL 等价写法
+EXTRACT(HOUR FROM exchange_time)
+```
+
+### 8.4 `lagInFrame()` — ClickHouse 的窗口偏移函数
+
+标准 SQL 用 `LAG()`，ClickHouse 中推荐使用 `lagInFrame()`：
+
+```sql
+-- ClickHouse
+lagInFrame(bid_price_1) OVER w AS prev_bid
+
+-- 等价于标准 SQL 的
+LAG(bid_price_1, 1) OVER w AS prev_bid
+```
+
+> `lagInFrame` 在窗口帧内取前一行的值。ClickHouse 的 `LAG()` 也存在，但 `lagInFrame` 是更推荐的写法，行为在帧边界上更明确。
+
+### 8.5 命名窗口 — `WINDOW ... AS`
+
+当多个列需要使用同一个窗口定义时，可以在查询末尾定义一个**命名窗口**，避免重复书写：
+
+```sql
+-- ❌ 重复书写窗口定义（冗长且易出错）
+SELECT
+    lagInFrame(bid_price_1) OVER (PARTITION BY instrument ORDER BY exchange_time) AS pb1,
+    lagInFrame(ask_price_1) OVER (PARTITION BY instrument ORDER BY exchange_time) AS pa1,
+    lagInFrame(bid_price_2) OVER (PARTITION BY instrument ORDER BY exchange_time) AS pb2
+FROM tick_data;
+
+-- ✅ 命名窗口（一次定义，多处引用）
+SELECT
+    lagInFrame(bid_price_1) OVER w AS pb1,
+    lagInFrame(ask_price_1) OVER w AS pa1,
+    lagInFrame(bid_price_2) OVER w AS pb2
+FROM tick_data
+WINDOW w AS (PARTITION BY instrument, toDate(exchange_time) ORDER BY exchange_time);
+```
+
+> 命名窗口是标准 SQL 规范的一部分（SQL:2003），但并非所有数据库都支持。ClickHouse、PostgreSQL、MySQL 8.0+ 均支持。
+
+### 8.6 Python 字符串模板 `{variable}`
+
+在 SQL 查询中看到 `{table}`、`{start_str}` 这类花括号，不是 SQL 语法，而是 **Python f-string 或 `.format()` 的占位符**，在 Python 代码中拼接 SQL 时使用：
+
+```python
+query = f"""
+    SELECT * FROM {table}
+    WHERE exchange_time >= '{start_str}'
+"""
+# 运行时 {table} 会被替换为实际表名
+```
+
+> 注意：直接拼接字符串存在 SQL 注入风险，生产环境建议用参数化查询。
+
+---
+
+## 九、实战案例：OFI 因子构建 (ClickHouse)
+
+以下是一个真实的**订单流不平衡 (Order Flow Imbalance, OFI)** 因子构建查询。OFI 是高频量化中衡量买卖压力的核心指标。
+
+### 9.1 查询的整体架构
+
+这个查询是一个**三层嵌套结构**，从内到外逐层加工：
+
+```
+第 3 层（最内层）：原始 Tick 数据 + 窗口函数取前一个 Tick 的价量
+        ↓
+第 2 层（中间层）：用 CASE WHEN 计算每个 Tick 的 OFI 值
+        ↓
+第 1 层（最外层）：按 instrument + date 聚合，生成日级别因子
+```
+
+### 9.2 第 3 层：获取前一 Tick 的价量（用于差分）
+
+```sql
+SELECT *,
+    lagInFrame(bid_price_1) OVER w AS pb1,   -- 前一 tick 的买一价
+    lagInFrame(bid_volume_1) OVER w AS pvb1, -- 前一 tick 的买一量
+    lagInFrame(ask_price_1) OVER w AS pa1,   -- 前一 tick 的卖一价
+    lagInFrame(ask_volume_1) OVER w AS pva1, -- 前一 tick 的卖一量
+    -- ... 对 5 档价格和挂单量分别取 lag
+FROM tick_data
+WHERE exchange_time >= '{start_str}' AND exchange_time <= '{end_str}'
+    AND ask_price_1 > 0 AND bid_price_1 > 0  -- 过滤无效报价
+WINDOW w AS (PARTITION BY instrument, toDate(exchange_time) ORDER BY exchange_time)
+--          ↑ 按「标的 + 日期」分组，按时间排序，确保 lag 取的是同一天同一标的的前一 tick
+```
+
+**关键点：**
+- `PARTITION BY instrument, toDate(exchange_time)` — 窗口按标的和日期分组，防止跨日/跨标的取 lag
+- `lagInFrame` — 取窗口帧内前一行的值
+
+### 9.3 第 2 层：逐 Tick 计算 OFI
+
+OFI 的核心思想：**当前 tick 相对于上一 tick，买方力量的变化减去卖方力量的变化。**
+
+```sql
+-- 买方变化（以买一档为例）
+CASE
+    WHEN bid_price_1 > pb1  THEN bid_volume_1   -- 买一价上升 → 全部挂单视为新增买压
+    WHEN bid_price_1 < pb1  THEN -pvb1           -- 买一价下降 → 上一 tick 的挂单全部撤出
+    ELSE bid_volume_1 - pvb1                      -- 价格不变 → 挂单量的净变化
+END
+
+-- 卖方变化（以卖一档为例）
+CASE
+    WHEN ask_price_1 < pa1  THEN ask_volume_1   -- 卖一价下降 → 全部挂单视为新增卖压
+    WHEN ask_price_1 > pa1  THEN -pva1           -- 卖一价上升 → 上一 tick 的挂单全部撤出
+    ELSE ask_volume_1 - pva1                      -- 价格不变 → 挂单量的净变化
+END
+
+-- OFI = 买方变化 - 卖方变化
+-- ofi_1 到 ofi_5 分别对应 5 档报价
+```
+
+**直觉理解：**
+- OFI > 0 → 买方力量增强（买盘增加或卖盘撤退）→ 看涨信号
+- OFI < 0 → 卖方力量增强（卖盘增加或买盘撤退）→ 看跌信号
+- 分 5 档计算，可以分析不同深度的挂单压力
+
+### 9.4 第 1 层：日级别因子聚合
+
+```sql
+SELECT
+    instrument, date,
+
+    -- ① 基础聚合：日内 OFI 的总和与波动
+    sum(ofi_1) AS ofi_1_sum,           -- 买一档 OFI 全天累计
+    stddevPop(ofi_1) AS ofi_1_std,     -- 买一档 OFI 的波动率
+
+    -- ② 深层汇总：2~5 档合并，衡量深层挂单的净压力
+    sum(ofi_2 + ofi_3 + ofi_4 + ofi_5) AS deep_ofi_sum,
+
+    -- ③ 时段切片：用 sumIf 提取特定时段的 OFI
+    --    开盘 30 分钟 (9:30-10:00)，市场信息量最大
+    sumIf(ofi_1,
+          toHour(exchange_time) = 9
+          AND toMinute(exchange_time) >= 30) AS ofi_1_open,
+
+    --    尾盘 (14:30-14:57)，机构调仓集中时段
+    sumIf(ofi_1,
+          toHour(exchange_time) = 14
+          AND toMinute(exchange_time) >= 30
+          AND toMinute(exchange_time) < 57) AS ofi_1_tail,
+
+    -- ④ 归一化基数：所有档位 OFI 绝对值之和，用于后续标准化
+    sum(abs(ofi_1)) + sum(abs(ofi_2)) + sum(abs(ofi_3))
+    + sum(abs(ofi_4)) + sum(abs(ofi_5)) AS total_ofi_activity
+
+FROM (... 第 2 层 ...)
+GROUP BY instrument, date
+```
+
+### 9.5 本例涉及的语法知识点汇总
+
+| 语法 | 类别 | 在本例中的用途 |
+|------|------|----------------|
+| `CASE WHEN ... THEN ... ELSE ... END` | 标准 SQL | 根据价格变动方向决定 OFI 计算逻辑 |
+| `WINDOW w AS (...)` | 标准 SQL (SQL:2003) | 定义命名窗口，避免重复写 20 次 `OVER(...)` |
+| `lagInFrame()` | ClickHouse | 取同一窗口内前一 tick 的价量数据 |
+| `sumIf(expr, cond)` | ClickHouse | 按时段（开盘/尾盘）切片聚合 |
+| `stddevPop()` | ClickHouse | 计算 OFI 的日内波动率 |
+| `toDate()` / `toHour()` / `toMinute()` | ClickHouse | 从时间戳提取日期/时/分 |
+| 三层嵌套子查询 | 标准 SQL | 逐层加工：取 lag → 算 OFI → 日聚合 |
+| `GROUP BY instrument, date` | 标准 SQL | 将 tick 级数据聚合为日级因子 |
+| `{variable}` | Python | SQL 模板中的参数占位符 |
+
+---
+
 ## 速查表
 
 | 需求 | 语法 |
