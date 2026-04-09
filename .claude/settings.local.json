@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/wcl-1/Downloads/**)",
+      "Bash(cd /tmp)",
+      "Bash(unzip -o \"C:/Users/wcl-1/Downloads/订单流微观分类调研报告.docx\" -d docx_extract)",
+      "Read(//tmp/docx_extract/**)",
+      "Bash(python -c ':*)",
+      "Read(//tmp/**)",
+      "Bash(xelatex -interaction=nonstopmode -halt-on-error main.tex)",
+      "Bash(xelatex -interaction=nonstopmode main.tex)",
+      "Bash(pdfinfo main.pdf)",
+      "Bash(echo \"PDF generated: $\\(wc -c < main.pdf\\) bytes, $\\(pdfinfo main.pdf)",
+      "Bash(echo \"Done: $\\(pdfinfo main.pdf)"
+    ]
+  }
+}

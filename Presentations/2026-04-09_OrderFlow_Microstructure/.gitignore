@@ -1,0 +1,19 @@
+# LaTeX 中间文件
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.xdv
+*.bbl
+*.blg
+*.run.xml
+*.bcf
+
+# 保留最终 PDF（取消注释以排除）
+# *.pdf

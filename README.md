@@ -27,7 +27,8 @@ Notes/
 │   ├── DeepLearning/  # 深度学习
 │   └── Applications/  # 应用场景
 ├── Cross/             # 交叉领域（AI + 量化金融）
-└── Tools/             # 工具与编程（SQL, Python 等通用技能）
+├── Tools/             # 工具与编程（SQL, Python 等通用技能）
+└── Presentations/     # 汇报与演示文稿（Beamer / LaTeX）
 ```
 
 ## 维护方式

@@ -6,6 +6,7 @@
 
 - [行情数据 L1 vs L2](QuantFinance/Basics/MarketData_L1_L2.md) — 数据层级、内容差异与因子挖掘应用
 - [组合优化五大维度](QuantFinance/Basics/PortfolioOptimization.md) — 绝对收益、跟踪误差、流动性、滑点、尾部风险
+- [正态分布与 t 分布](QuantFinance/Basics/Normal_vs_T_Distribution.md) — PDF/CDF、厚尾效应、与金融肥尾的联系
 - [t 统计量](QuantFinance/Basics/T_Statistic.md) — 信号/噪声比，因子验证与夏普比率的联系
 - [IC、IR 与夏普比率](QuantFinance/Basics/IC_IR_Sharpe.md) — 因子评价三指标及主动管理基本定律
 - [IC/IR 计算详解](QuantFinance/Basics/IC_IR_Calculation.md) — Pearson vs Spearman、Rank IC 鲁棒性与代码实现
@@ -14,6 +15,15 @@
 - [群体性数据挖掘与 t 值通胀](QuantFinance/Basics/MultipleTestingProblem.md) — 抽屉效应、因子动物园、为什么 t>3.0
 - [异常值检测与 MAD 去极值](QuantFinance/Basics/OutlierDetection_MAD.md) — MAD 鲁棒性、四种检测方法对比、去极值代码
 - [订单簿与成交价格推算](QuantFinance/Basics/OrderBook_Pricing.md) — 穿透订单簿、Micro-price、Kyle 模型、做市商博弈
+
+### 微观结构专题（Microstructure/）★
+
+- [Lee-Ready / BVC 交易方向推定](QuantFinance/Microstructure/TradeDirection_LeeReady_BVC.md)
+- [Kyle (1985) 模型完整推导](QuantFinance/Microstructure/KyleModel_Derivation.md)
+- [PIN / VPIN 信息毒性](QuantFinance/Microstructure/PIN_VPIN.md)
+- [冰山订单与扫单流](QuantFinance/Microstructure/OrderTypes_Iceberg_Sweep.md)
+- [Boehmer 散户订单识别](QuantFinance/Microstructure/RetailOrders_Boehmer.md)
+- [OFI 与 VOI 失衡指标](QuantFinance/Microstructure/OFI_VOI.md)
 - [指数增强策略](QuantFinance/Strategies/IndexEnhancement.md) — Alpha来源、风险约束、适用环境
 - [高频因子挖掘](QuantFinance/Strategies/HighFreqFactorMining.md) — Tick→K线聚合→预测的完整范式
 
