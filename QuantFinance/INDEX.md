@@ -22,6 +22,7 @@
 - [滑点](Basics/Slippage.md) — 流动性滑点/延迟滑点、平方根法则、策略中的四种应对方法
 - [多元 OLS 回归](Basics/OLS_MultipleRegression.md) — 正规方程推导、高斯-马尔可夫假设、BLUE、几何投影解释
 - [Ridge 与 LASSO](Basics/Ridge_LASSO.md) — L2/L1 正则化、闭式解 vs 迭代、菱形 vs 圆形的几何直觉
+- [平方根冲击定律](Basics/SquareRootImpactLaw.md) — 公式推导、与Kyle模型对比、参与率阈值、真实指数δ∈[0.4,0.8]
 - [订单簿与成交价格推算](Basics/OrderBook_Pricing.md) — 穿透订单簿、Micro-price、集合竞价、Kyle 模型与做市商博弈
 
 ## Microstructure/ — 市场微观结构 ★
@@ -43,6 +44,7 @@
 
 ## Research/ — 文献调研与研究笔记
 - [A 股高频因子工程](Research/AShare_HFFactorEngineering.md) — OFI 变体(磁吸效应/条件OFI)、大单主买主卖画像、T+1 下三种落地路径
+- [OFI 因子数学构建方法](Research/OFI_Construction.md) — L1→MLOFI→PCA集成→非线性加权→霍克斯/OU→物理动能→神经网络
 
 ## DataProcessing/ — 数据处理工作流（经验总结）
 - [标准工作流](DataProcessing/Workflow.md) — 清洗→去极值→标准化→缺失值→中性化，附常用 Tricks

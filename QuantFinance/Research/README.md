@@ -19,6 +19,8 @@
 |------|------|------|
 | [AShare_HFFactorEngineering.md](AShare_HFFactorEngineering.md) | A 股高频因子工程：OFI 变体、参与者画像、统计增强、T+1 下的 Alpha 衰减 | Gemini 调研报告 |
 | [A New Way to Compute the Probability of Informed Trading.md](A%20New%20Way%20to%20Compute%20the%20Probability%20of%20Informed%20Trading.md) | VPIN 的数学漏洞 + 基于矩估计的精确 PIN 公式 | Bambade (2019) 精读 |
+| [MLOFI.md](MLOFI.md) | 多层 OFI、订单流长记忆性悖论、非对称流动性 vs 传播子模型 | Xu et al. (2019) 精读中 |
+| [OFI_Construction.md](OFI_Construction.md) | OFI 因子数学构建方法全景：L1→MLOFI→PCA→非线性→霍克斯→物理→神经网络 | Gemini 调研报告 |
 
 ## 阅读清单 (Reading List)
 
@@ -30,6 +32,7 @@
 - [x] Boehmer et al. (2021) — 散户订单识别 → 笔记在 [Microstructure/RetailOrders_Boehmer.md](../Microstructure/RetailOrders_Boehmer.md)
 - [x] A 股高频因子工程综合调研 → 笔记在 [AShare_HFFactorEngineering.md](AShare_HFFactorEngineering.md)
 - [x] Bambade (2019) — *A New Way to Compute the Probability of Informed Trading* → [精读笔记](A%20New%20Way%20to%20Compute%20the%20Probability%20of%20Informed%20Trading.md)
+- [ ] Xu, Gould, Howison (2019) — *Multi-Level Order-Flow Imbalance in a Limit Order Book* → [精读中](MLOFI.md)
 
 ### 待精读
 
