@@ -67,33 +67,33 @@
 \section{引言与研究背景}
 % ============================================================
 
-\begin{frame}{为什么是微观结构?——一场降维打击}
+% \begin{frame}{为什么是微观结构?——一场降维打击}
 
-  \textbf{数据颗粒度的演进:}
+%   \textbf{数据颗粒度的演进:}
 
-  \begin{center}
-  \begin{tikzpicture}[node distance=1.4cm, every node/.style={font=\small}]
-    \node[draw, rounded corners, fill=blue!10] (a) {日线 / 分钟线};
-    \node[draw, rounded corners, fill=blue!20, right=of a] (b) {Tick (逐笔成交)};
-    \node[draw, rounded corners, fill=blue!30, right=of b] (c) {L2 快照};
-    \node[draw, rounded corners, fill=blue!50, text=white, right=of c] (d) {MBO (逐笔委托)};
-    \draw[->,thick] (a) -- (b);
-    \draw[->,thick] (b) -- (c);
-    \draw[->,thick] (c) -- (d);
-  \end{tikzpicture}
-  \end{center}
+%   \begin{center}
+%   \begin{tikzpicture}[node distance=1.4cm, every node/.style={font=\small}]
+%     \node[draw, rounded corners, fill=blue!10] (a) {日线 / 分钟线};
+%     \node[draw, rounded corners, fill=blue!20, right=of a] (b) {Tick (逐笔成交)};
+%     \node[draw, rounded corners, fill=blue!30, right=of b] (c) {L2 快照};
+%     \node[draw, rounded corners, fill=blue!50, text=white, right=of c] (d) {MBO (逐笔委托)};
+%     \draw[->,thick] (a) -- (b);
+%     \draw[->,thick] (b) -- (c);
+%     \draw[->,thick] (c) -- (d);
+%   \end{tikzpicture}
+%   \end{center}
 
-  \vfill
+%   \vfill
 
-  \textbf{现代量化的视角转换:}
+%   \textbf{现代量化的视角转换:}
 
-  \begin{itemize}
-    \item 市场不再是一个抽象的宏观定价机制
-    \item 而是\alert{由海量异质性订单构成的复杂动力学系统}
-    \item 每一笔订单都携带\textbf{方向、规模}的物理属性,以及\textbf{博弈意图}
-    \item 纳秒级时间戳使我们得以观察金融市场的"基本粒子"
-  \end{itemize}
-\end{frame}
+%   \begin{itemize}
+%     \item 市场不再是一个抽象的宏观定价机制
+%     \item 而是\alert{由海量异质性订单构成的复杂动力学系统}
+%     \item 每一笔订单都携带\textbf{方向、规模}的物理属性,以及\textbf{博弈意图}
+%     \item 纳秒级时间戳使我们得以观察金融市场的"基本粒子"
+%   \end{itemize}
+% \end{frame}
 
 \begin{frame}{研究的两大核心目标}
 
@@ -468,7 +468,7 @@
 
 \end{frame}
 
-\begin{frame}{VPIN (2012) ——体积时钟革命}
+\begin{frame}{VPIN (2012) ——体积时钟创新}
 
   Easley、López de Prado、O'Hara 的里程碑式创新:\textbf{彻底抛弃物理时间}。
 
@@ -493,7 +493,7 @@
   \textbf{物理类比}:测量心脏健康用"每跳一次心"而非"每秒",VPIN 就是金融市场的心跳计数。
 \end{frame}
 
-\begin{frame}{封神时刻:2010 闪电崩盘}
+\begin{frame}{2010 闪电崩盘}
 
   \textbf{事件}:2010 年 5 月 6 日,道琼斯指数在 5 分钟内自由落体 1000 点,蓝筹股瞬间跌至 1 美分。
 
@@ -739,29 +739,7 @@
 
 \end{frame}
 
-\begin{frame}{前沿:多级 LOB 与 DeepLOB 深度学习}
 
-  现代高频量化不再满足于单层 L1 失衡——采集 \textbf{LOB 前 10 档甚至 20 档}全深度数据。
-
-  \vfill
-
-  \begin{center}
-  \begin{tikzpicture}[node distance=0.6cm, font=\scriptsize]
-    \node[draw, rounded corners, fill=blue!10] (a) {Multi-Level LOB Tensor (10+ levels $\times$ OHLC $\times$ Volume)};
-    \node[draw, rounded corners, fill=blue!20, below=of a] (b) {1D CNN(提取局部空间特征)};
-    \node[draw, rounded corners, fill=blue!30, below=of b] (c) {LSTM(捕捉时序依赖)};
-    \node[draw, rounded corners, fill=quantblue!40, below=of c, text=white] (d) {未来 10 个 Tick 的价格反转概率};
-    \draw[->] (a) -- (b);
-    \draw[->] (b) -- (c);
-    \draw[->] (c) -- (d);
-  \end{tikzpicture}
-  \end{center}
-
-  \vfill
-
-  \textbf{表现}:在预测未来 10 个 Tick 价格反转胜率上,DeepLOB \textbf{远远碾压}传统线性回归统计模型——AI 模型能提取人类难以理解的高维非线性时空相关性。
-
-\end{frame}
 
 % ============================================================
 \section{总结与实习思考}
@@ -772,15 +750,15 @@
   \begin{enumerate}
     \item \textbf{方向是基础}——没有方向就没有 Alpha;Lee-Ready 与 BVC 各有所长
 
-    \item \textbf{Kyle 模型是理论之锚}——价格冲击 $\lambda$ 是信息风险的均衡定价
+    \item \textbf{Kyle 模型}——价格冲击 $\lambda$ 是信息风险的均衡定价
 
-    \item \textbf{VPIN 是风控的眼睛}——体积时钟让我们提前一小时看见闪电崩盘
+    \item \textbf{VPIN 是风控}——体积时钟让我们提前一小时看见闪电崩盘
 
-    \item \textbf{参与者画像揭示战场}——冰山 / 扫单 / Boehmer 散户构成完整对手盘地图
+    \item \textbf{参与者画像}——冰山 / 扫单 / Boehmer 散户构成完整对手盘地图
 
-    \item \textbf{OFI 是终极武器}——线性预测 $\Delta P$ 的强度堪比物理定律
+    \item \textbf{OFI}——线性预测 $\Delta P$ 
 
-    \item \textbf{深度学习是未来}——多级 LOB + CNN/LSTM 突破传统因子的天花板
+    \item \textbf{深度学习}——多级 LOB + CNN/LSTM 突破传统因子的天花板
   \end{enumerate}
 
   \vfill
@@ -822,25 +800,28 @@
 
 \end{frame}
 
-\begin{frame}{实习个人收获}
+\begin{frame}{前沿:多级 LOB 与 DeepLOB 深度学习}
 
-  \begin{itemize}
-    \item \textbf{从宏观视角到微观视角的跨越}——不再只看 K 线,而是看每一笔订单背后的人和算法
-
-    \item \textbf{从因子使用者到因子构建者}——理解 OFI 不是一个黑盒,而是有清晰物理意义的事件聚合
-
-    \item \textbf{数据基础设施的重要性}——MBO / L2 / Tick 数据的获取、清洗、对齐是一切微观研究的前提
-
-    \item \textbf{统计严谨性的训练}——t 统计量、IC/IR、多重检验校正,避免被表面数据骗
-
-    \item \textbf{工程与理论的平衡}——再优雅的模型,也要在实时风控的延迟约束下落地
-  \end{itemize}
+  现代高频量化不再满足于单层 L1 失衡——采集 \textbf{LOB 前 10 档甚至 20 档}全深度数据。
 
   \vfill
 
-  \begin{exampleblock}{下一步}
-    深入研究多级 OFI 的稳定性、跨资产 OFI 的联合建模、以及 DeepLOB 在中国市场的适配性。
-  \end{exampleblock}
+  \begin{center}
+  \begin{tikzpicture}[node distance=0.6cm, font=\scriptsize]
+    \node[draw, rounded corners, fill=blue!10] (a) {Multi-Level LOB Tensor (10+ levels $\times$ OHLC $\times$ Volume)};
+    \node[draw, rounded corners, fill=blue!20, below=of a] (b) {1D CNN(提取局部空间特征)};
+    \node[draw, rounded corners, fill=blue!30, below=of b] (c) {LSTM(捕捉时序依赖)};
+    \node[draw, rounded corners, fill=quantblue!40, below=of c, text=white] (d) {未来 10 个 Tick 的价格反转概率};
+    \draw[->] (a) -- (b);
+    \draw[->] (b) -- (c);
+    \draw[->] (c) -- (d);
+  \end{tikzpicture}
+  \end{center}
+
+  \vfill
+
+  \textbf{表现}:在预测未来 10 个 Tick 价格反转胜率上,DeepLOB \textbf{远远碾压}传统线性回归统计模型——AI 模型能提取人类难以理解的高维非线性时空相关性。
+
 \end{frame}
 
 \begin{frame}

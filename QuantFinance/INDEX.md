@@ -3,7 +3,8 @@
 ## Basics/ — 基础概念
 - [行情数据 L1 vs L2](Basics/MarketData_L1_L2.md) — Level-1/Level-2 数据的内容、频率与因子挖掘应用
 - [组合优化五大维度](Basics/PortfolioOptimization.md) — 绝对收益、跟踪误差、流动性、滑点、尾部风险（含 VaR/CVaR）
-- [正态分布与 t 分布](Basics/Normal_vs_T_Distribution.md) — PDF/CDF 公式、厚尾效应、t→正态的极限性质
+- [泊松分布](Basics/PoissonDistribution.md) — 二项分布极限推导、泊松过程三前提、微分方程完整推导
+- [正态分���与 t 分布](Basics/Normal_vs_T_Distribution.md) — PDF/CDF 公式、厚尾效应、t→正态的��限性质
 - [正态投影定理](Basics/NormalProjectionTheorem.md) — 联合正态下的条件期望、信噪比增益系数、概率论性质汇总
 - [LQ 动态规划](Basics/LQ_DynamicProgramming.md) — 贝尔曼方程、二次型传递、线性最优策略的数学来源
 - [t 统计量](Basics/T_Statistic.md) — 信号/噪声比，因子显著性验证，与信息比率的关系
@@ -15,6 +16,12 @@
 - [异常值检测与 MAD 去极值](Basics/OutlierDetection_MAD.md) — Z-Score/IQR/MAD/Isolation Forest 对比，工业级去极值流程
 - [限价单](Basics/LimitOrders.md) — 限价买单/卖单、与市价单的区别、在 LOB 中的角色
 - [Maker-Taker 模型与返佣](Basics/MakerTaker_Rebates.md) — 返佣条件、Post-Only 模式、各市场对比
+- [复权](Basics/PriceAdjustment.md) — 不复权/前复权/后复权对比、未来函数陷阱、量化避坑指南
+- [流动性](Basics/Liquidity.md) — 四大定量指标(ADV/Spread/Amihud/Impact)、流动性过滤器构建
+- [Tick：跳价单位与逐笔数据](Basics/TickSize.md) — Tick Size（价格分辨率）vs Tick Data（时间心电图）
+- [滑点](Basics/Slippage.md) — 流动性滑点/延迟滑点、平方根法则、策略中的四种应对方法
+- [多元 OLS 回归](Basics/OLS_MultipleRegression.md) — 正规方程推导、高斯-马尔可夫假设、BLUE、几何投影解释
+- [Ridge 与 LASSO](Basics/Ridge_LASSO.md) — L2/L1 正则化、闭式解 vs 迭代、菱形 vs 圆形的几何直觉
 - [订单簿与成交价格推算](Basics/OrderBook_Pricing.md) — 穿透订单簿、Micro-price、集合竞价、Kyle 模型与做市商博弈
 
 ## Microstructure/ — 市场微观结构 ★
@@ -27,6 +34,15 @@
 - [冰山订单与扫单流](Microstructure/OrderTypes_Iceberg_Sweep.md) — MBO 追踪、生存分析、流动性真空
 - [Boehmer 散户订单识别](Microstructure/RetailOrders_Boehmer.md) — 子便士机制与 PFOF 微观签名
 - [OFI 与 VOI](Microstructure/OFI_VOI.md) — 事件驱动 vs 静态存量、DeepLOB 多级架构
+
+## Markets/ — 交易市场制度与规则
+- [A 股做市商现状](Markets/MarketMaker_AShare.md) — 覆盖范围、主要券商、特殊性
+- [中美做市商异同](Markets/MarketMaker_AvsUS.md) — 报价驱动 vs 订单驱动、PFOF、准入机制六大差异
+- [中美量化策略异同](Markets/QuantStrategy_AvsUS.md) — T+1 vs T+0、指增/底仓T+0/量价因子 vs HFT/Long-Short/另类数据
+- [A 股量化危机 2024](Markets/QuantCrisis_AShare_2024.md) — 因子拥挤→DMA 杠杆→流动性螺旋→监管重拳→行业转型
+
+## Research/ — 文献调研与研究笔记
+- [A 股高频因子工程](Research/AShare_HFFactorEngineering.md) — OFI 变体(磁吸效应/条件OFI)、大单主买主卖画像、T+1 下三种落地路径
 
 ## DataProcessing/ — 数据处理工作流（经验总结）
 - [标准工作流](DataProcessing/Workflow.md) — 清洗→去极值→标准化→缺失值→中性化，附常用 Tricks
