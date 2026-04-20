@@ -21,6 +21,7 @@
 | [A New Way to Compute the Probability of Informed Trading.md](A%20New%20Way%20to%20Compute%20the%20Probability%20of%20Informed%20Trading.md) | VPIN 的数学漏洞 + 基于矩估计的精确 PIN 公式 | Bambade (2019) 精读 |
 | [MLOFI.md](MLOFI.md) | 多层 OFI、订单流长记忆性悖论、非对称流动性 vs 传播子模型 | Xu et al. (2019) 精读中 |
 | [OFI_Construction.md](OFI_Construction.md) | OFI 因子数学构建方法全景：L1→MLOFI→PCA→非线性→霍克斯→物理→神经网络 | Gemini 调研报告 |
+| [SentimentFactor_Survey.md](SentimentFactor_Survey.md) | 情绪因子构建：RSI/PSY/MFI→PCR/VIX/SKEW→FinBERT/NLP | Gemini 调研报告 |
 
 ## 阅读清单 (Reading List)
 

@@ -15,6 +15,7 @@
 - [群体性数据挖掘与 t 值通胀](Basics/MultipleTestingProblem.md) — 抽屉效应、因子动物园、Harvey 的 t>3.0 标准
 - [异常值检测与 MAD 去极值](Basics/OutlierDetection_MAD.md) — Z-Score/IQR/MAD/Isolation Forest 对比，工业级去极值流程
 - [限价单](Basics/LimitOrders.md) — 限价买单/卖单、与市价单的区别、在 LOB 中的角色
+- [A 股市价申报订单类型](Basics/OrderTypes_AShare.md) — 本方最优/对手方最优/IOC/FOK 五类对比、U 类订单作为高频算法指纹
 - [Maker-Taker 模型与返佣](Basics/MakerTaker_Rebates.md) — 返佣条件、Post-Only 模式、各市场对比
 - [复权](Basics/PriceAdjustment.md) — 不复权/前复权/后复权对比、未来函数陷阱、量化避坑指南
 - [流动性](Basics/Liquidity.md) — 四大定量指标(ADV/Spread/Amihud/Impact)、流动性过滤器构建
@@ -23,6 +24,7 @@
 - [多元 OLS 回归](Basics/OLS_MultipleRegression.md) — 正规方程推导、高斯-马尔可夫假设、BLUE、几何投影解释
 - [Ridge 与 LASSO](Basics/Ridge_LASSO.md) — L2/L1 正则化、闭式解 vs 迭代、菱形 vs 圆形的几何直觉
 - [平方根冲击定律](Basics/SquareRootImpactLaw.md) — 公式推导、与Kyle模型对比、参与率阈值、真实指数δ∈[0.4,0.8]
+- [因子评估五大指标](Basics/FactorEvaluation_5Metrics.md) — Rank IC/ICIR/多头超额/多空夏普/换手率，含经验标准与筛选流程
 - [订单簿与成交价格推算](Basics/OrderBook_Pricing.md) — 穿透订单簿、Micro-price、集合竞价、Kyle 模型与做市商博弈
 
 ## Microstructure/ — 市场微观结构 ★
@@ -45,6 +47,7 @@
 ## Research/ — 文献调研与研究笔记
 - [A 股高频因子工程](Research/AShare_HFFactorEngineering.md) — OFI 变体(磁吸效应/条件OFI)、大单主买主卖画像、T+1 下三种落地路径
 - [OFI 因子数学构建方法](Research/OFI_Construction.md) — L1→MLOFI→PCA集成→非线性加权→霍克斯/OU→物理动能→神经网络
+- [情绪因子构建综述](Research/SentimentFactor_Survey.md) — 量价统计(RSI/PSY/MFI)→衍生品(PCR/VIX/SKEW)→NLP(FinBERT)
 
 ## DataProcessing/ — 数据处理工作流（经验总结）
 - [标准工作流](DataProcessing/Workflow.md) — 清洗→去极值→标准化→缺失值→中性化，附常用 Tricks
