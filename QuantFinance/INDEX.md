@@ -19,7 +19,7 @@
 - [Maker-Taker 模型与返佣](Basics/MakerTaker_Rebates.md) — 返佣条件、Post-Only 模式、各市场对比
 - [复权](Basics/PriceAdjustment.md) — 不复权/前复权/后复权对比、未来函数陷阱、量化避坑指南
 - [流动性](Basics/Liquidity.md) — 四大定量指标(ADV/Spread/Amihud/Impact)、流动性过滤器构建
-- [Tick：跳价单位与逐笔数据](Basics/TickSize.md) — Tick Size（价格分辨率）vs Tick Data（时间心电图）
+- [Tick：跳价单位与逐笔数据](Basics/TickSize.md) — Tick Size（价格分辨率）vs Tick Data（时间心电图）；Small/Medium/Large Tick 分类
 - [滑点](Basics/Slippage.md) — 流动性滑点/延迟滑点、平方根法则、策略中的四种应对方法
 - [多元 OLS 回归](Basics/OLS_MultipleRegression.md) — 正规方程推导、高斯-马尔可夫假设、BLUE、几何投影解释
 - [Ridge 与 LASSO](Basics/Ridge_LASSO.md) — L2/L1 正则化、闭式解 vs 迭代、菱形 vs 圆形的几何直觉
@@ -43,11 +43,16 @@
 - [中美做市商异同](Markets/MarketMaker_AvsUS.md) — 报价驱动 vs 订单驱动、PFOF、准入机制六大差异
 - [中美量化策略异同](Markets/QuantStrategy_AvsUS.md) — T+1 vs T+0、指增/底仓T+0/量价因子 vs HFT/Long-Short/另类数据
 - [A 股量化危机 2024](Markets/QuantCrisis_AShare_2024.md) — 因子拥挤→DMA 杠杆→流动性螺旋→监管重拳→行业转型
+- [A 股散户交易平台（证券 APP）](Markets/RetailTradingApp_AShare.md) — 交易所/券商/客户端三层架构、条件单≠限价单、定时撤单、QMT/Ptrade 门槛
 
 ## Research/ — 文献调研与研究笔记
 - [A 股高频因子工程](Research/AShare_HFFactorEngineering.md) — OFI 变体(磁吸效应/条件OFI)、大单主买主卖画像、T+1 下三种落地路径
 - [OFI 因子数学构建方法](Research/OFI_Construction.md) — L1→MLOFI→PCA集成→非线性加权→霍克斯/OU→物理动能→神经网络
 - [情绪因子构建综述](Research/SentimentFactor_Survey.md) — 量价统计(RSI/PSY/MFI)→衍生品(PCR/VIX/SKEW)→NLP(FinBERT)
+
+## Journal/ — 研究日志（日常零星点子）
+- [格式约定](Journal/README.md) — 周粒度文件、倒序、#tag、升级规则
+- [Week of 2026-04-20](Journal/2026-04-20.md) — 本周日志
 
 ## DataProcessing/ — 数据处理工作流（经验总结）
 - [标准工作流](DataProcessing/Workflow.md) — 清洗→去极值→标准化→缺失值→中性化，附常用 Tricks

@@ -2,7 +2,7 @@
 
 限价单是金融交易中最基本的订单类型之一，也是限价订单簿 (LOB) 的构成"砖块"。理解限价单是理解所有微观结构理论的前提。
 
-> 相关：[订单簿与成交价格推算](OrderBook_Pricing.md) | [Kyle 模型中的 Maker/Taker](../Microstructure/KyleModel_Derivation.md)
+> 相关：[订单簿与成交价格推算](OrderBook_Pricing.md) | [Kyle 模型中的 Maker/Taker](../Microstructure/KyleModel_Derivation.md) | [A 股散户交易平台（证券 APP）](../Markets/RetailTradingApp_AShare.md)（注意：**条件单不是限价单！** 两者架构层级完全不同）
 
 ---
 

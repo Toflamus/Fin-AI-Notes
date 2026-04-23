@@ -12,7 +12,10 @@
       "Bash(pdfinfo main.pdf)",
       "Bash(echo \"PDF generated: $\\(wc -c < main.pdf\\) bytes, $\\(pdfinfo main.pdf)",
       "Bash(echo \"Done: $\\(pdfinfo main.pdf)",
-      "Bash(python3 -c ':*)"
+      "Bash(python3 -c ':*)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git add *)"
     ]
   }
 }
