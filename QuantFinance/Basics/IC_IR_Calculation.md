@@ -29,6 +29,34 @@ $$IR = \frac{\mu_{IC}}{\sigma_{IC}}$$
 
 > 年化 IR（用于报告）：$IR_{\text{annual}} = IR \times \sqrt{\text{Periods per year}}$。高频内部比对时，直接用原始序列计算即可。
 
+### ICIR 的计算（重点补充）
+
+在因子研究语境里，ICIR（Information Coefficient Information Ratio）通常就是对 IC 时间序列计算的 IR：
+
+$$ICIR = \frac{\text{Mean}(IC_t)}{\text{Std}(IC_t)}$$
+
+其中：
+
+- $IC_t$：第 $t$ 期（如第 $t$ 个交易日）的截面 Rank IC
+- 分子：因子平均预测能力
+- 分母：预测能力的波动（不稳定性）
+
+因此文献里常见的 "$IR$" 和 "$ICIR$" 在因子检验阶段多数是同一个量，只是命名习惯不同。
+
+计算步骤可以写成：
+
+1. 每期做一次截面相关，得到序列 $\{IC_1, IC_2, \ldots, IC_T\}$。
+2. 计算均值：$\mu_{IC} = \frac{1}{T}\sum_{t=1}^{T} IC_t$。
+3. 计算标准差：$\sigma_{IC} = \sqrt{\frac{1}{T-1}\sum_{t=1}^{T}(IC_t-\mu_{IC})^2}$。
+4. 计算 $ICIR = \mu_{IC}/\sigma_{IC}$。
+5. 如需跨频率比较，可年化：$ICIR_{\text{annual}} = ICIR \times \sqrt{K}$，$K$ 为年内期数（如日频 $K=252$）。
+
+一个最小数值示例：若 5 期 IC 为 $[0.10, 0.05, 0.00, 0.08, 0.02]$，则
+
+$$\mu_{IC}=0.05,\quad \sigma_{IC}\approx0.0412,\quad ICIR\approx1.21$$
+
+表示该因子不仅平均有效（IC 为正），而且稳定性也较好。
+
 ---
 
 ## 2. 皮尔森相关系数 (Pearson Correlation) — Normal IC

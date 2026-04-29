@@ -23,9 +23,11 @@
 - [滑点](Basics/Slippage.md) — 流动性滑点/延迟滑点、平方根法则、策略中的四种应对方法
 - [多元 OLS 回归](Basics/OLS_MultipleRegression.md) — 正规方程推导、高斯-马尔可夫假设、BLUE、几何投影解释
 - [Ridge 与 LASSO](Basics/Ridge_LASSO.md) — L2/L1 正则化、闭式解 vs 迭代、菱形 vs 圆形的几何直觉
+- [因子中性化与 MLS](Basics/FactorNeutralization_MLS.md) — 风险因子定义、Alpha/Beta 分离的战略意图、OLS/WLS/MLS 完整推导、Smoothing Matrix、带宽与核函数选择
 - [平方根冲击定律](Basics/SquareRootImpactLaw.md) — 公式推导、与Kyle模型对比、参与率阈值、真实指数δ∈[0.4,0.8]
 - [因子评估五大指标](Basics/FactorEvaluation_5Metrics.md) — Rank IC/ICIR/多头超额/多空夏普/换手率，含经验标准与筛选流程
 - [订单簿与成交价格推算](Basics/OrderBook_Pricing.md) — 穿透订单簿、Micro-price、集合竞价、Kyle 模型与做市商博弈
+- [逆向选择风险](Basics/AdverseSelection.md) — Glosten-Milgrom 模型推导、做市商价差公式、对 PFOF/Maker 返佣/收盘撤单的统一解释
 
 ## Microstructure/ — 市场微观结构 ★
 - [模块总览](Microstructure/README.md) — 微观结构研究的全景图
@@ -44,6 +46,7 @@
 - [中美量化策略异同](Markets/QuantStrategy_AvsUS.md) — T+1 vs T+0、指增/底仓T+0/量价因子 vs HFT/Long-Short/另类数据
 - [A 股量化危机 2024](Markets/QuantCrisis_AShare_2024.md) — 因子拥挤→DMA 杠杆→流动性螺旋→监管重拳→行业转型
 - [A 股散户交易平台（证券 APP）](Markets/RetailTradingApp_AShare.md) — 交易所/券商/客户端三层架构、条件单≠限价单、定时撤单、QMT/Ptrade 门槛
+- [集合竞价规则与机构 14:56:59 大逃亡](Markets/ClosingAuction_AShare_InstBehavior.md) — 开/收盘竞价规则、订单顺延机制、机构撤单的三大风险；反面：指数/MOC/超大单/收割者为什么反向入场
 
 ## Research/ — 文献调研与研究笔记
 - [A 股高频因子工程](Research/AShare_HFFactorEngineering.md) — OFI 变体(磁吸效应/条件OFI)、大单主买主卖画像、T+1 下三种落地路径
