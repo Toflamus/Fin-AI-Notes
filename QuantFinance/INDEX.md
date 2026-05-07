@@ -71,4 +71,7 @@
 - [高频因子挖掘](Strategies/HighFreqFactorMining.md) — Tick→变换→K线聚合→预测的完整范式，维度计算与维度匹配
 
 ## Tools/ — 工具与编程
-*暂无内容*
+### Join 与 Hash 系列
+- [Part 1：Hash Join 基础](Tools/JoinAndHash/01_HashJoin.md) — 嵌套循环 vs Hash Join 复杂度、Build/Probe 两阶段、Grace Hash Join 分区、何时不用 Hash Join
+- [Part 2：Sort-Merge Join 详解](Tools/JoinAndHash/02_SortMergeJoin.md) — 双指针合并、Mark 机制处理重复 key、外部排序、与 Hash Join 对比、范围 Join 场景
+- [Part 3：Grace Hash Join 详解](Tools/JoinAndHash/03_GraceHashJoin.md) — 两表均超内存、Partition + Build/Probe 三阶段、3× I/O 最优性、分区倾斜与递归回退、PostgreSQL/Spark 实现
